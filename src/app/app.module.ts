@@ -11,12 +11,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CdkTableModule } from '@angular/cdk/table';
 import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { UserDetailComponent } from './modules/main/routes/user/user-detail/user-detail/user-detail.component';
 @NgModule({
   declarations: [
     AppComponent,
     UserListComponent,
     GridComponent,
-    ToolbarConfigComponent
+    ToolbarConfigComponent,
+    UserDetailComponent
   ],
   imports: [
     BrowserModule,

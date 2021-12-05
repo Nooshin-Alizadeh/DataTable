@@ -6,8 +6,9 @@
                     <th [GridSortConfig]="grid" column="id" cdk-header-cell *cdkHeaderCellDef [style.width.px]="'150'"> Id
                     </th>
                     <td (click)="navigateToDetail(row.id)" cdk-cell *cdkCellDef="let row">
-                        <a (click)="navigateToDetail(row.id)" style="color: blue;">
-                            {{row.id }}</a>
+                        <a (click)="navigateToDetail(row.id)" >
+                            {{row.id }}
+                        </a>
                     </td>
                 </ng-container>
                 <ng-container cdkColumnDef="first_name">
