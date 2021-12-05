@@ -1,22 +1,26 @@
 import { Component, Injector, OnInit } from '@angular/core';
+import { BaseComponent } from '../../../framework/Base.Component';
 import { DataServiceConfigurationService } from '../../../framework/data-service-configuration.service';
 import { GridColumnConfig, GridConfig } from '../../../shared/grid/grid.component';
+import { UserDetailComponent } from '../user-detail/user-detail/user-detail.component';
 
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.scss']
 })
-export class UserListComponent extends DataServiceConfigurationService implements OnInit {
+export class UserListComponent extends BaseComponent implements OnInit {
   grid!: GridConfig;
   init=false;
+
   constructor( injector: Injector) {
     super(injector);
+    
   }
 
   ngOnInit(): void {
     this.grid = new GridConfig();
-    this.grid.url = this.getUrl('users');
+    this.grid.url = this.dataService.getUrl('users');
     this.grid.onRowClick = (row) => {
       //this.quickViewService.open(this.entityType, row.id);
     };
@@ -37,7 +41,7 @@ export class UserListComponent extends DataServiceConfigurationService implement
 
   }
   navigateToDetail(id:any){
-
+    this.modal(UserDetailComponent)
   }
 
 

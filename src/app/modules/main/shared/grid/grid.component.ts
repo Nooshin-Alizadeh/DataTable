@@ -223,6 +223,7 @@ export class GridComponent implements OnInit, AfterViewInit {
 
 
   rowClick(row: any, event: Event): void {
+    debugger;
     this.config.selectable && this.config.rowSelectable && this.config.selection.toggle(row);
     this.config.onRowClick && this.config.onRowClick(row);
     event && event.preventDefault();

@@ -6,7 +6,7 @@
                     <th [GridSortConfig]="grid" column="id" cdk-header-cell *cdkHeaderCellDef [style.width.px]="'150'"> Id
                     </th>
                     <td (click)="navigateToDetail(row.id)" cdk-cell *cdkCellDef="let row">
-                        <a (click)="navigateToDetail(row.id)" >
+                        <a >
                             {{row.id }}
                         </a>
                     </td>
