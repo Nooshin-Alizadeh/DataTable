@@ -3,6 +3,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { SelectionModel } from '@angular/cdk/collections';
 import { DataSource } from '@angular/cdk/collections';
 import { CdkTable, CdkColumnDef, CdkFooterRowDef } from '@angular/cdk/table';
+import {MatIconModule} from '@angular/material/icon';
 import { NgbPopover } from '@ng-bootstrap/ng-bootstrap';
 
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -219,6 +220,8 @@ export class GridComponent implements OnInit, AfterViewInit {
   }
 
 
+
+
   rowClick(row: any, event: Event): void {
     this.config.selectable && this.config.rowSelectable && this.config.selection.toggle(row);
     this.config.onRowClick && this.config.onRowClick(row);
@@ -299,6 +302,9 @@ export class GridComponent implements OnInit, AfterViewInit {
       this.undoStorage = [];
     };
 
+    if (this.config.displayColumns &&  this.config.displayColumns.indexOf('__quick_view') === -1 ) {
+      this.config.displayColumns.unshift('__quick_view');
+    }
 
   }
 
