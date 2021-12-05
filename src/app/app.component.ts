@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'data-table';
+  listView = '';
+  onNavigate(feature: any) {
+    this.listView = feature;
+  }
 }
