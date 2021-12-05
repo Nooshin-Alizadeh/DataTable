@@ -1,0 +1,38 @@
+<div class="row">
+    <div class="col-md-12">
+        <div *ngIf="init">
+            <app-grid [config]="grid">
+                <ng-container cdkColumnDef="id">
+                    <th [GridSortConfig]="grid" column="id" cdk-header-cell *cdkHeaderCellDef [style.width.px]="'150'">
+                    </th>
+                    <td cdk-cell *cdkCellDef="let row">
+                        <a (click)="navigateToDetail(row.id)">
+                            {{row.id }}</a>
+                    </td>
+                </ng-container>
+                <ng-container cdkColumnDef="first_name">
+                    <th [GridSortConfig]="grid" column="first_name" cdk-header-cell *cdkHeaderCellDef>First Name
+                    </th>
+                    <td cdk-cell *cdkCellDef="let row" style="width: 175px;">
+                        {{ row.first_name }}
+                    </td>
+                </ng-container>
+
+                <ng-container cdkColumnDef="last_name">
+                    <th [GridSortConfig]="grid" column="last_name" cdk-header-cell *cdkHeaderCellDef>Last Name
+                    </th>
+                    <td cdk-cell *cdkCellDef="let row" style="width: 175px;">
+                        {{ row.last_name }}
+                    </td>
+                </ng-container>
+                <ng-container cdkColumnDef="email">
+                    <th [GridSortConfig]="grid" column="email" cdk-header-cell *cdkHeaderCellDef>E-mail
+                    </th>
+                    <td cdk-cell *cdkCellDef="let row" style="width: 175px;">
+                        {{ row.email }}
+                    </td>
+                </ng-container>
+            </app-grid>
+        </div>
+    </div>
+</div>
