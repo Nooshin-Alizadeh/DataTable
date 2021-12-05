@@ -1,19 +1,17 @@
-**{{config.displayColumns}}***
-**{{config.dataSource}}***
+<div class="" [ngStyle]="config.style">
+    <table cdk-table [ngClass]="config.cssClass" [dataSource]="config.dataSource" #table>
 
-<div  *ngIf="config.dataSource && config.dataSource.data ">
-    <table cdk-table class="table table-striped" [dataSource]="config.dataSource" #table>
-        <!-- <div>
+        <ng-container>
             <tr cdk-header-row *cdkHeaderRowDef="config.displayColumns; sticky: true">
             </tr>
-        </div> -->
+        </ng-container>
 
-        <div>
+        <ng-container>
             <tr tabindex="0" cdk-row *cdkRowDef="let row; columns: config.displayColumns;"
                 [ngClass]="{ 'selected' : config.selection.isSelected(row) }"
                 style="background-color: #f5f5f5;outline: 1px solid #fff;">
             </tr>
-        </div>
+        </ng-container>
 
     </table>
 </div>
@@ -21,27 +19,26 @@
 <div class=" row" *ngIf="config.pager">
     <div class="col-md-6 col-lg-7">
         <ngb-pagination class="d-flex justify-content-start" [boundaryLinks]="true" size="sm"
-            (pageChange)="pageChange($event)" [maxSize]="config.maxPageSize" [pageSize]="config.pageSize"
-            [collectionSize]="config.total" [(page)]="config.page"></ngb-pagination>
+            (pageChange)="pageChange($event)" [maxSize]="config.maxPageSize" [pageSize]="config.pageSize || 0"
+            [collectionSize]="config.total || 0" [page]="config.page"></ngb-pagination>
     </div>
     <div class="col-md-3 col-lg-3 text-right ">
-        <ul class="a-grid-pager-toolbar">
+        <!-- <ul class="">
             <li>
-                <button title="Refresh" >
+                <button title="Refresh" >(click)="config.refresh()"
                     <i class="material-icons">refresh</i>
-                </button><!--(click)="config.refresh()"-->
+                </button>
             </li>
-        </ul>
-        <span>{{ config.total }} </span>
+        </ul> -->
+        <span>{{ config.total }} Items</span>
     </div>
-    <div class="ng-table-pager row ml-2 col-md-3 col-lg-2">
+    <div class=" row ml-2 col-md-3 col-lg-2">
         <div>
-            <select class="custom-select" 
-                ><!--[(ngModel)]="config.pageSize"-->
+            <select class="custom-select" (change)="changeSize($event.target)" [(ngModel)]="config.pageSize">
                 <option *ngFor="let item of pageSizes" [ngValue]="item">{{ item }}</option>
-                <option [ngValue]="config.total">ALL</option>
-            </select><!--(change)="changeSize($event.target.value , config.pageSize)"-->
+                <option [ngValue]="config.total">All</option>
+            </select>
         </div>
-        <div class="ng-table-pager ml-2" style="color: #212529; font-size:13px;line-height: 30px;">pagerDescription</div>
+        <div class=" ml-2" style="color: #212529; font-size:13px;line-height: 30px;">Row Per Page</div>
     </div>
 </div>
