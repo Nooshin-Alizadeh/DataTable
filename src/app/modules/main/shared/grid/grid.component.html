@@ -1,0 +1,47 @@
+**{{config.displayColumns}}***
+**{{config.dataSource}}***
+
+<div  *ngIf="config.dataSource && config.dataSource.data ">
+    <table cdk-table class="table table-striped" [dataSource]="config.dataSource" #table>
+        <!-- <div>
+            <tr cdk-header-row *cdkHeaderRowDef="config.displayColumns; sticky: true">
+            </tr>
+        </div> -->
+
+        <div>
+            <tr tabindex="0" cdk-row *cdkRowDef="let row; columns: config.displayColumns;"
+                [ngClass]="{ 'selected' : config.selection.isSelected(row) }"
+                style="background-color: #f5f5f5;outline: 1px solid #fff;">
+            </tr>
+        </div>
+
+    </table>
+</div>
+
+<div class=" row" *ngIf="config.pager">
+    <div class="col-md-6 col-lg-7">
+        <ngb-pagination class="d-flex justify-content-start" [boundaryLinks]="true" size="sm"
+            (pageChange)="pageChange($event)" [maxSize]="config.maxPageSize" [pageSize]="config.pageSize"
+            [collectionSize]="config.total" [(page)]="config.page"></ngb-pagination>
+    </div>
+    <div class="col-md-3 col-lg-3 text-right ">
+        <ul class="a-grid-pager-toolbar">
+            <li>
+                <button title="Refresh" >
+                    <i class="material-icons">refresh</i>
+                </button><!--(click)="config.refresh()"-->
+            </li>
+        </ul>
+        <span>{{ config.total }} </span>
+    </div>
+    <div class="ng-table-pager row ml-2 col-md-3 col-lg-2">
+        <div>
+            <select class="custom-select" 
+                ><!--[(ngModel)]="config.pageSize"-->
+                <option *ngFor="let item of pageSizes" [ngValue]="item">{{ item }}</option>
+                <option [ngValue]="config.total">ALL</option>
+            </select><!--(change)="changeSize($event.target.value , config.pageSize)"-->
+        </div>
+        <div class="ng-table-pager ml-2" style="color: #212529; font-size:13px;line-height: 30px;">pagerDescription</div>
+    </div>
+</div>
