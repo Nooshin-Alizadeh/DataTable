@@ -43,7 +43,6 @@ export class DataServiceConfigurationService {
     return this.http.post(url, data, this.getRequestOptions(options));
   }
   public get(url: string, params?: { [param: string]: string | string[] }, options?: { [key: string]: any }): Observable<any> {
-    debugger;
     return this.http.get(url);
     //return this.http.get(url, this.getRequestOptions(options, params));
   }

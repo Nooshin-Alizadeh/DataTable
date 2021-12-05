@@ -93,13 +93,10 @@ export class GridConfig {
     this.headerMenu = true;
     this.rowSelectable = false;
     this.manualGet = false;
-    this.favorite = false;
     this.pager = true;
-    this.favoriteField = 'isFavorite';
     this.sortColumns = {};
     this.excludeSort = [];
     this.footer = false;
-    this.quickView = true;
   }
   public search: any;
   public requestType: 'get' | 'post' = 'get';
@@ -120,8 +117,6 @@ export class GridConfig {
   public cssClass: string = '';
   public rowSelectable: boolean;
   public headerMenu: boolean;
-  public favorite: boolean;
-  public favoriteField: string;
   public selection = new SelectionModel<any>(true, []);
   public onRowClick?: (row?: any) => void;
   public manualGet: boolean;
@@ -129,7 +124,6 @@ export class GridConfig {
   public excludeSort: string[];
   public sortColumns: { [key: string]: GridSortColumnConfig };
   public excludeInSmallScreens: string[] = [];
-  public quickView: boolean;
   public refresh?(page?: number, data?: any[], search?: any): void;
   public fetch?(): void;
   public mapper?(response: any): any[];
@@ -224,10 +218,6 @@ export class GridComponent implements OnInit, AfterViewInit {
 
   }
 
-  toggleMenu(popover: NgbPopover, row: any, event: Event) {
-    event && event.preventDefault();
-    event && event.stopPropagation();
-  }
 
   rowClick(row: any, event: Event): void {
     this.config.selectable && this.config.rowSelectable && this.config.selection.toggle(row);
@@ -289,12 +279,6 @@ export class GridComponent implements OnInit, AfterViewInit {
     !this.config.manualGet && this.get(this.config.page);
   }
 
-  private filter(): void {
-    this.inited = false;
-    this.config.page = 1;
-    this.get(this.config.page);
-  }
-
   private setDefaults(): void {
 
     this.dataSource = [];
@@ -308,10 +292,6 @@ export class GridComponent implements OnInit, AfterViewInit {
       this.get(this.config.page);
     };
     this.config.sort = this.sort.bind(this);
-    if (this.config.displayColumns && this.config.favorite === true
-      && this.config.displayColumns.indexOf(this.config.favoriteField) === -1) {
-      this.config.displayColumns.unshift(this.config.favoriteField);
-    }
 
     this.config.remove = this.remove.bind(this);
     this.config.undo = this.undo.bind(this);
@@ -416,8 +396,7 @@ export class GridComponent implements OnInit, AfterViewInit {
   }
 
   private getParams(): any {
-    let counter = 0;
-    debugger;
+    let counter = 0;    
     const sort = Object.values(this.config.sortColumns)
       .filter(v => v.sortDirection !== null && v.sortDirection !== GridSortConfig.None)
       .map((v) => {

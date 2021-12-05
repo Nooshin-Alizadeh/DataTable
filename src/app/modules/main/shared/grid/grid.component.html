@@ -1,5 +1,6 @@
 <div class="" [ngStyle]="config.style">
-    <table cdk-table [ngClass]="config.cssClass" [dataSource]="config.dataSource" #table>
+    <table cdk-table [ngClass]="config.cssClass" [dataSource]="config.dataSource" #table
+    class="table table-striped" >
 
         <ng-container>
             <tr cdk-header-row *cdkHeaderRowDef="config.displayColumns; sticky: true">
