@@ -3,9 +3,6 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { SelectionModel } from '@angular/cdk/collections';
 import { DataSource } from '@angular/cdk/collections';
 import { CdkTable, CdkColumnDef, CdkFooterRowDef } from '@angular/cdk/table';
-import {MatIconModule} from '@angular/material/icon';
-import { NgbPopover } from '@ng-bootstrap/ng-bootstrap';
-
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Spinner } from 'ngx-spinner/lib/ngx-spinner.enum';
 import { DataServiceConfigurationService, IResponse } from '../../framework/data-service-configuration.service';
@@ -87,8 +84,8 @@ export class GridConfig {
     this.columns = [];
     this.displayColumns = [];
     this.page = 1;
-    this.pageSize = 10;
-    this.maxPageSize = 3;
+    this.pageSize = 5;
+    this.maxPageSize = 100;
     this.dataSource = new GridDataSourceConfig();
     this.selectable = true;
     this.headerMenu = true;
@@ -113,7 +110,7 @@ export class GridConfig {
   public pages?: number;
   public total?: number;
   public maxPageSize: number;
-  public style: { [key: string]: string }={};
+  public style: { [key: string]: string } = {};
   public selectable: boolean;
   public cssClass: string = '';
   public rowSelectable: boolean;
@@ -166,7 +163,7 @@ export class GridConfig {
 })
 export class GridComponent implements OnInit, AfterViewInit {
   columnsAdded = false;
-  public pageSizes = [10, 20, 30];
+  public pageSizes = [5, 10];
 
   private loadingOption: Spinner = {
     type: 'ball-scale-multiple',
@@ -219,11 +216,7 @@ export class GridComponent implements OnInit, AfterViewInit {
 
   }
 
-
-
-
   rowClick(row: any, event: Event): void {
-    debugger;
     this.config.selectable && this.config.rowSelectable && this.config.selection.toggle(row);
     this.config.onRowClick && this.config.onRowClick(row);
     event && event.preventDefault();
@@ -303,9 +296,9 @@ export class GridComponent implements OnInit, AfterViewInit {
       this.undoStorage = [];
     };
 
-    if (this.config.displayColumns &&  this.config.displayColumns.indexOf('__quick_view') === -1 ) {
-      this.config.displayColumns.unshift('__quick_view');
-    }
+    // if (this.config.displayColumns &&  this.config.displayColumns.indexOf('__quick_view') === -1 ) {
+    //   this.config.displayColumns.unshift('__quick_view');
+    // }
 
   }
 
@@ -398,12 +391,12 @@ export class GridComponent implements OnInit, AfterViewInit {
         this.loading(false);
       });
 
-    } 
+    }
 
   }
 
   private getParams(): any {
-    let counter = 0;    
+    let counter = 0;
     const sort = Object.values(this.config.sortColumns)
       .filter(v => v.sortDirection !== null && v.sortDirection !== GridSortConfig.None)
       .map((v) => {
@@ -415,9 +408,9 @@ export class GridComponent implements OnInit, AfterViewInit {
       });
     let params: any = {
       expSearch: this.config.search,
-      pageNumber: this.config.page,
-      take: this.config.pageSize,
-      sort: JSON.stringify(sort),
+      page: this.config.page,
+      per_page: this.config.pageSize,
+      sort: 'id',//JSON.stringify(sort),
       all: true
     };
     params.defaultSort = sort.length === 0;

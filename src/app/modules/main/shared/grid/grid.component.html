@@ -1,7 +1,7 @@
 <div class="" [ngStyle]="config.style">
     <table cdk-table [ngClass]="config.cssClass" [dataSource]="config.dataSource" #table class="table table-striped">
 
-        <ng-container cdkColumnDef="__quick_view">
+        <!-- <ng-container cdkColumnDef="__quick_view">
             <th cdk-header-cell *cdkHeaderCellDef [style.width.px]="'50'">  ...</th>
             <td cdk-cell *cdkCellDef="let row" style="width: 50 px;" (click)="rowClick(row,$event)">
 
@@ -9,7 +9,7 @@
                    
                 </i>
             </td>
-        </ng-container>
+        </ng-container> -->
         <ng-container>
             <tr cdk-header-row *cdkHeaderRowDef="config.displayColumns; sticky: true">
             </tr>
