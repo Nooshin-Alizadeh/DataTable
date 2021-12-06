@@ -46,7 +46,6 @@ export class OtherListComponent extends BaseComponent implements OnInit {
     this.init = true;
   }
   navigateToDetail(row: any) {
-    debugger;
     this.router.navigateByUrl(`others/${this.entity}/${row}`);
   }
 }
