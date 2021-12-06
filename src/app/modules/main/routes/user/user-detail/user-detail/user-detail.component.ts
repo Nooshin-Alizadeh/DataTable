@@ -9,11 +9,14 @@ import { BaseModalComponent } from 'src/app/modules/main/framework/Base.Modal.Co
 })
 export class UserDetailComponent extends BaseModalComponent implements OnInit {
 
-  constructor(injector:Injector) {
+  constructor(injector: Injector) {
     super(injector);
   }
 
   ngOnInit(): void {
+    this.dataService.get(this.dataService.getUrl('users'), this.configData).subscribe((row) => {
+      this.viewModel = row.data;
+    })
   }
 
 }

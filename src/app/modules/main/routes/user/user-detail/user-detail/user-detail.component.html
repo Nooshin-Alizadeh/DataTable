@@ -1,10 +1,56 @@
 <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Hi there!</h4>
-    <button type="button" class="close" aria-label="Close" (click)="activeModal?.close()">
+    <h4 class="modal-title" id="modal-basic-title">Profile
+        <small class="text-muted"> ({{viewModel.id}})</small>
+    </h4>
+    <!-- <button type="button" class="close" aria-label="Close" (click)="activeModal?.close()">
         <span aria-hidden="true">&times;</span>
+    </button> -->
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="activeModal?.close()">
+        <i aria-hidden="true">&times;</i>
     </button>
 </div>
 <div class="modal-body">
+    <div *ngIf="this.viewModel">
+        <form class="form-horizontal">
+            <div class="form-body">
+                <div class="row">
+                    <div class="col-md-8 form-horizontal">
+                        <div class="form-group row">
+                            <label class="col-md-3 control-label">Name</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control input-circle"
+                                    [ngModelOptions]="{standalone: true}" [(ngModel)]="viewModel.first_name">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 control-label">Last Name</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control input-circle"
+                                    [ngModelOptions]="{standalone: true}" [(ngModel)]="viewModel.last_name">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 control-label">Email Address</label>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon input-circle-left">
+                                        <i class="fa fa-envelope"></i>
+                                    </span>
+                                    <input type="email" class="form-control input-circle-right"
+                                        [ngModelOptions]="{standalone: true}" [(ngModel)]="viewModel.email">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="profile-userpic" style="text-align: end;">
+                            <img src="{{viewModel.avatar}}" class="img-responsive" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
-<div class="modal-footer">
-</div>
+<!-- <div class="modal-footer">
+</div> -->
