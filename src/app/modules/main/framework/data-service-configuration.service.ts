@@ -25,7 +25,7 @@ export class DataServiceConfigurationService {
     try {
       this.http = this.injector.get(HttpClient);
     } catch (error) {
-      
+
     }
   }
 
@@ -33,18 +33,23 @@ export class DataServiceConfigurationService {
     return `${this.baseUrl}api/${module}`;
   }
 
-  public post(url: string, model: Object, options?: { [key: string]: any }): Observable<any> {
-    var data = null;
-    try {
-      data = JSON.stringify(model);
-    } catch (error) {
+  // public post(url: string, model: Object, options?: { [key: string]: any }): Observable<any> {
+  //   var data = null;
+  //   try {
+  //     data = JSON.stringify(model);
+  //   } catch (error) {
 
-    }
-    return this.http.post(url, data, this.getRequestOptions(options));
-  }
-  public get(url: string, params?: { [param: string]: string | string[] }, options?: { [key: string]: any }): Observable<any> {
+  //   }
+  //   return this.http.post(url, data, this.getRequestOptions(options));
+  // }
+  public get(url: string,
+    params?: { [param: string]: string | string[] },
+    options?: { [key: string]: any }): Observable<any> {
+    if (params)
+      return this.http.get(url, this.getRequestOptions(options, params));
+
     return this.http.get(url);
-    //return this.http.get(url, this.getRequestOptions(options, params));
+
   }
 
   get requestOptionsArgs(): { [key: string]: any } {
@@ -53,13 +58,14 @@ export class DataServiceConfigurationService {
   set requestOptionsArgs(requestOptionsArgs: { [key: string]: any }) {
     this._requestOptionsArgs = requestOptionsArgs;
   }
-  public getRequestOptions(requestOptionsArgs?: { [key: string]: any }, params?: { [param: string]: string | string[] }): any {
+  public getRequestOptions(requestOptionsArgs: { [key: string]: any } = {}, params?: { [param: string]: string | string[] }): any {
     try {
+      if (!this.requestOptionsArgs) this.requestOptionsArgs = {};
       this.requestOptionsArgs['params'] = null;
-    if (params) {
-      this.requestOptionsArgs['params'] = new HttpParams({ fromObject: params });
-    }
-    return Object.assign(this.requestOptionsArgs, requestOptionsArgs);
+      if (params) {
+        this.requestOptionsArgs['params'] = new HttpParams({ fromObject: params });
+      }
+      return Object.assign(this.requestOptionsArgs, requestOptionsArgs);
     } catch (error) {
       return null;
     }
