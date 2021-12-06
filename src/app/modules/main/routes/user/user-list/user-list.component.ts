@@ -1,7 +1,8 @@
 import { Component, Injector, OnInit } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { BaseComponent } from '../../../framework/Base.Component';
 import { DataServiceConfigurationService } from '../../../framework/data-service-configuration.service';
-import { GridColumnConfig, GridConfig } from '../../../shared/grid/grid.component';
+import { GridColumnConfig, GridConfig, GridSortConfig } from '../../../shared/grid/grid.component';
 import { UserDetailComponent } from '../user-detail/user-detail/user-detail.component';
 
 @Component({
@@ -11,11 +12,11 @@ import { UserDetailComponent } from '../user-detail/user-detail/user-detail.comp
 })
 export class UserListComponent extends BaseComponent implements OnInit {
   grid!: GridConfig;
-  init=false;
+  init = false;
 
-  constructor( injector: Injector) {
+  constructor(injector: Injector) {
     super(injector);
-    
+
   }
 
   ngOnInit(): void {
@@ -34,16 +35,17 @@ export class UserListComponent extends BaseComponent implements OnInit {
       new GridColumnConfig('email', 'email', { width: '200px' }),
 
     );
-
-
-
+    this.grid.sortColumns = {
+      'id': {
+        field: 'id',
+        sortDirection: GridSortConfig.Descending,
+        sortListener: new BehaviorSubject<GridSortConfig>(GridSortConfig.Descending)
+      }
+    }
     this.init = true;
-
   }
-  navigateToDetail(id:any){
-    this.modal(UserDetailComponent)
+  navigateToDetail(id: any) {
+    this.modal(UserDetailComponent, { id })
   }
-
-
 
 }

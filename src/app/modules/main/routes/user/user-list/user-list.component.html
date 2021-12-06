@@ -3,10 +3,11 @@
         <div *ngIf="init">
             <app-grid [config]="grid">
                 <ng-container cdkColumnDef="id">
-                    <th [GridSortConfig]="grid" column="id" cdk-header-cell *cdkHeaderCellDef [style.width.px]="'150'"> Id
+                    <th [GridSortConfig]="grid" column="id" cdk-header-cell *cdkHeaderCellDef [style.width.px]="'150'">
+                        Id
                     </th>
                     <td (click)="navigateToDetail(row.id)" cdk-cell *cdkCellDef="let row">
-                        <a >
+                        <a class="text-primary ml-2">
                             {{row.id }}
                         </a>
                     </td>
