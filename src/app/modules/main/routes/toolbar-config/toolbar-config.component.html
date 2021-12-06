@@ -1,16 +1,18 @@
 <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs nav nav-pills ">
-    <li [ngbNavItem]="1" routerLinkActive="active">
-      <a ngbNavLink routerLink="/user">User</a>
-     
-    </li>
-    <li [ngbNavItem]="2" routerLinkActive="active">
-      <a ngbNavLink routerLink="/other">Others</a>
-      <ng-template ngbNavContent>
+  <!-- <li [ngbNavItem]="1" routerLinkActive="active">
+    <a ngbNavLink routerLink="/user">User</a>
 
-      </ng-template>
-    </li>
-   
-  </ul>
-  
-  <div [ngbNavOutlet]="nav" class="mt-2"></div>
-  
+  </li> -->
+  <li class="nav-item" routerLinkActive="active">
+    <a class="nav-link active" routerLink="/user">User</a>
+  </li>
+  <li ngbDropdown class="nav-item" routerLinkActive="active">
+    <a href (click)="false" class="nav-link" ngbDropdownToggle>Others</a>
+    <div ngbDropdownMenu>
+      <a ngbNavLink routerLink="/others/color">Color</a>
+    </div>
+  </li>
+
+</ul>
+
+<div [ngbNavOutlet]="nav" class="mt-2"></div>

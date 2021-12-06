@@ -1,11 +1,14 @@
 import { Injector } from "@angular/core";
 import { NgbModal, NgbModalOptions, NgbModalRef } from "@ng-bootstrap/ng-bootstrap";
+import { GridConfig } from "../shared/grid/grid.component";
 import { DataServiceConfigurationService } from "./data-service-configuration.service";
 
 export abstract class BaseComponent {
     modalService!: NgbModal;
     dataService!: DataServiceConfigurationService;
     viewModel: any;
+    grid!: GridConfig;
+    init = false;
     constructor(protected injector: Injector) {
         this.injectServices();
     }

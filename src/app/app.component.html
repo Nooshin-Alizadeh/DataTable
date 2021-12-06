@@ -1,8 +1,12 @@
-<app-toolbar-config (featureSelected)="onNavigate($event)"></app-toolbar-config>
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      <router-outlet></router-outlet>
+<div class="m-3 ">
+  <div class=" mx-auto">
+    <app-toolbar-config (featureSelected)="onNavigate($event)"></app-toolbar-config>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
     </div>
   </div>
 </div>

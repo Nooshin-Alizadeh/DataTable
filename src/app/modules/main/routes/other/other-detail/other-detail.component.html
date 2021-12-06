@@ -1,0 +1,42 @@
+<div class="content d-flex flex-column flex-column-fluid">
+
+    <div class="">
+        <div *ngIf="this.viewModel">
+            <form class="form-horizontal">
+                <div class="form-body">
+                    <div class="row">
+                        <div class="col-md-8 form-horizontal">
+                            <div class="form-group row">
+                                <label class="col-md-3 control-label">Name</label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control input-circle"
+                                        [ngModelOptions]="{standalone: true}" [(ngModel)]="viewModel.name">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-3 control-label">Year</label>
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        <span class="input-group-addon input-circle-left">
+                                            <i class="fa fa-calendar"></i>
+                                        </span>
+                                        <input type="email" class="form-control input-circle-right"
+                                            [ngModelOptions]="{standalone: true}" [(ngModel)]="viewModel.year">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="color-demo tooltips" data-original-title="" data-toggle="modal" data-target="">
+                                <div class="color-view  bold uppercase" [ngStyle]="{'background':viewModel.color}"
+                                    style="color: #FFF!important;"> {{viewModel.color}} </div>
+                                <div class="color-info bg-white c-font-14 sbold"
+                                    style="background-color: #FFF!important;"> {{viewModel.pantone_value}} </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -11,12 +11,9 @@ import { UserDetailComponent } from '../user-detail/user-detail/user-detail.comp
   styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent extends BaseComponent implements OnInit {
-  grid!: GridConfig;
-  init = false;
 
   constructor(injector: Injector) {
     super(injector);
-
   }
 
   ngOnInit(): void {

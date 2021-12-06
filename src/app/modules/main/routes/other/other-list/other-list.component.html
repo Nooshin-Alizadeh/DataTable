@@ -1,0 +1,50 @@
+<div class="row">
+    <div class="col-md-12">
+        <div *ngIf="init">
+            <app-grid [config]="grid">
+                <ng-container cdkColumnDef="id">
+                    <th [GridSortConfig]="grid" column="id" cdk-header-cell *cdkHeaderCellDef [style.width.px]="'150'">
+                        Id
+                    </th>
+                    <td (click)="navigateToDetail(row.id)" cdk-cell *cdkCellDef="let row">
+                        <a class="text-primary ml-2">
+                            {{row.id }}
+                        </a>
+                    </td>
+                </ng-container>
+                <ng-container cdkColumnDef="name">
+                    <th [GridSortConfig]="grid" column="name" cdk-header-cell *cdkHeaderCellDef>First Name
+                    </th>
+                    <td cdk-cell *cdkCellDef="let row" style="width: 175px;">
+                        <!--[ngStyle]="{'color': row.color}"-->
+                        <span title="{{row.color}}" [ngStyle]="{'color': row.color}">{{ row.name }}</span>
+                        <!-- <input type="color" ngModel="row.color" > -->
+                    </td>
+
+                </ng-container>
+
+                <ng-container cdkColumnDef="year">
+                    <th [GridSortConfig]="grid" column="year" cdk-header-cell *cdkHeaderCellDef>Year
+                    </th>
+                    <td cdk-cell *cdkCellDef="let row" style="width: 175px;">
+                        {{ row.year }}
+                    </td>
+                </ng-container>
+                <ng-container cdkColumnDef="pantone_value">
+                    <th [GridSortConfig]="grid" column="pantone_value" cdk-header-cell *cdkHeaderCellDef>Pantone
+                    </th>
+                    <td cdk-cell *cdkCellDef="let row" style="width: 175px;">
+                        {{ row.pantone_value }}
+                    </td>
+                </ng-container>
+                <!-- <ng-container cdkColumnDef="email">
+                    <th [GridSortConfig]="grid" column="email" cdk-header-cell *cdkHeaderCellDef>Pantone
+                    </th>
+                    <td cdk-cell *cdkCellDef="let row" style="width: 175px;">
+                        {{ row.email }}
+                    </td>
+                </ng-container> -->
+            </app-grid>
+        </div>
+    </div>
+</div>

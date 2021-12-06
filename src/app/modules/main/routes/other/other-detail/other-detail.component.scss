@@ -1,0 +1,26 @@
+@use "./../../user/user-detail/user-detail/user-detail.component.scss";
+
+.color-demo {
+    border: 1px solid #eee;
+    margin: 0 0 20px;
+    cursor: pointer;
+    .color-view {
+        padding: 35px 10px;
+        text-align: center;
+        font-size: 18px;
+    }
+    .color-info {
+        border-top: 1px solid #eee;
+        padding: 10px;
+        text-align: center;
+    }
+}
+.bold {
+    font-weight: 700 !important;
+}
+.sbold {
+    font-weight: 600 !important;
+}
+.uppercase {
+    text-transform: uppercase !important;
+}
