@@ -85,12 +85,7 @@ export class GridConfig {
     this.displayColumns = [];
     this.page = 1;
     this.pageSize = 5;
-    this.maxPageSize = 100;
     this.dataSource = new GridDataSourceConfig();
-    this.selectable = true;
-    this.headerMenu = true;
-    this.rowSelectable = false;
-    this.manualGet = false;
     this.pager = true;
     this.sortColumns = {};
     this.excludeSort = [];
@@ -109,27 +104,16 @@ export class GridConfig {
   public page: number;
   public pages?: number;
   public total?: number;
-  public maxPageSize: number;
   public style: { [key: string]: string } = {};
-  public selectable: boolean;
   public cssClass: string = '';
-  public rowSelectable: boolean;
-  public headerMenu: boolean;
-  public selection = new SelectionModel<any>(true, []);
   public onRowClick?: (row?: any) => void;
-  public manualGet: boolean;
   public pager: boolean;
   public excludeSort: string[];
   public sortColumns: { [key: string]: GridSortColumnConfig };
   public excludeInSmallScreens: string[] = [];
-  public refresh?(page?: number, data?: any[], search?: any): void;
   public fetch?(): void;
   public mapper?(response: any): any[];
-  public requestExtender?(request: any): any;
   public sort?(column: GridColumnConfig, direction: GridSortConfig): any;
-  public remove(rows: any[]): void { }
-  public clearUndoStorage(): void { }
-  public undo(): void { }
 
   setColumns(...columns: GridColumnConfig[]): GridConfig {
     this.columns = columns;
@@ -142,18 +126,6 @@ export class GridConfig {
     return this;
   }
 
-  public isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.value.length;
-    return numSelected === numRows;
-  }
-
-
-  public masterToggle($event?: any) {
-    this.isAllSelected() ?
-      this.selection.clear() :
-      this.dataSource.data.value.forEach(row => this.selection.select(row));
-  }
 }
 
 @Component({
@@ -217,14 +189,12 @@ export class GridComponent implements OnInit, AfterViewInit {
   }
 
   rowClick(row: any, event: Event): void {
-    this.config.selectable && this.config.rowSelectable && this.config.selection.toggle(row);
     this.config.onRowClick && this.config.onRowClick(row);
     event && event.preventDefault();
     event && event.stopPropagation();
   }
 
   rowSelection(row: any, event: Event): void {
-    this.config.selectable && this.config.selection.toggle(row);
     event && event.preventDefault();
     event && event.stopPropagation();
   }
@@ -273,28 +243,16 @@ export class GridComponent implements OnInit, AfterViewInit {
 
     }
 
-    !this.config.manualGet && this.get(this.config.page);
+    this.get(this.config.page);
   }
 
   private setDefaults(): void {
 
     this.dataSource = [];
-    this.config.refresh = (page?: number, data?: any[], search?: any): void => {
-      this.config.search = search || this.config.search;
-      this.config.page = page || this.config.page;
-      this.get(this.config.page);
-      this.config.selection.clear();
-    };
     this.config.fetch = () => {
       this.get(this.config.page);
     };
     this.config.sort = this.sort.bind(this);
-
-    this.config.remove = this.remove.bind(this);
-    this.config.undo = this.undo.bind(this);
-    this.config.clearUndoStorage = () => {
-      this.undoStorage = [];
-    };
 
     // if (this.config.displayColumns &&  this.config.displayColumns.indexOf('__quick_view') === -1 ) {
     //   this.config.displayColumns.unshift('__quick_view');
@@ -331,7 +289,6 @@ export class GridComponent implements OnInit, AfterViewInit {
       if (index > -1) {
         this.dataSource.splice(index, 1);
         this.config.dataSource.data.next(this.dataSource);
-        this.config.selection.clear();
         this.undoStorage.unshift({
           index,
           data: row
@@ -345,7 +302,6 @@ export class GridComponent implements OnInit, AfterViewInit {
       this.dataSource.splice(r.index, 0, r.data);
     });
     this.config.dataSource.data.next(this.dataSource);
-    this.config.selection.clear();
   }
 
   private sort(column: GridColumnConfig, direction: GridSortConfig): void {
@@ -387,7 +343,6 @@ export class GridComponent implements OnInit, AfterViewInit {
       }, (error: any) => {
         console.error(`Error while getting data from [${this.config.url}]`, error);
         this.inited = true;
-        this.config.selection.clear();
         this.loading(false);
       });
 
@@ -414,9 +369,7 @@ export class GridComponent implements OnInit, AfterViewInit {
       all: true
     };
     params.defaultSort = sort.length === 0;
-    if (typeof (this.config.requestExtender) === 'function') {
-      params = this.config.requestExtender(params);
-    }
+
     return params;
   }
 

@@ -17,7 +17,6 @@
 
         <ng-container>
             <tr tabindex="0" cdk-row *cdkRowDef="let row; columns: config.displayColumns;"
-                [ngClass]="{ 'selected' : config.selection.isSelected(row) }"
                 style="background-color: #f5f5f5;outline: 1px solid #fff;">
             </tr>
         </ng-container>
@@ -28,7 +27,7 @@
 <div class=" row" *ngIf="config.pager">
     <div class="col-md-6 col-lg-7">
         <ngb-pagination class="d-flex justify-content-start" [boundaryLinks]="true" size="sm"
-            (pageChange)="pageChange($event)" [maxSize]="config.maxPageSize" [pageSize]="config.pageSize || 0"
+            (pageChange)="pageChange($event)"  [pageSize]="config.pageSize || 0"
             [collectionSize]="config.total || 0" [page]="config.page"></ngb-pagination>
     </div>
     <div class="col-md-3 col-lg-3 text-right ">

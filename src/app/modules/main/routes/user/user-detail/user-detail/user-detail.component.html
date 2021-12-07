@@ -1,6 +1,6 @@
 <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Profile
-        <small class="text-muted"> ({{viewModel.id}})</small>
+        <small class="text-muted"> ({{viewModel?viewModel.id : ''}})</small>
     </h4>
     <!-- <button type="button" class="close" aria-label="Close" (click)="activeModal?.close()">
         <span aria-hidden="true">&times;</span>
