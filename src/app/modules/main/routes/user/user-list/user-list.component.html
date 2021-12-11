@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <div *ngIf="init">
             <app-grid [config]="grid">
-                <ng-container cdkColumnDef="id">
+                <!-- <ng-container cdkColumnDef="id">
                     <th [GridSortConfig]="grid" column="id" cdk-header-cell *cdkHeaderCellDef [style.width.px]="'150'">
                         Id
                     </th>
@@ -11,12 +11,15 @@
                             {{row.id }}
                         </a>
                     </td>
-                </ng-container>
+                </ng-container> -->
                 <ng-container cdkColumnDef="first_name">
                     <th [GridSortConfig]="grid" column="first_name" cdk-header-cell *cdkHeaderCellDef>First Name
                     </th>
-                    <td cdk-cell *cdkCellDef="let row" style="width: 175px;">
-                        {{ row.first_name }}
+                    <td cdk-cell *cdkCellDef="let row" style="width: 175px;" (click)="navigateToDetail(row.id)">
+                        <a class="text-primary ml-2">
+                            {{ row.first_name }}
+                        </a>
+                        
                     </td>
                 </ng-container>
 

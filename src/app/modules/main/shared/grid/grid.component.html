@@ -1,15 +1,29 @@
 <div class="" [ngStyle]="config.style">
     <table cdk-table [ngClass]="config.cssClass" [dataSource]="config.dataSource" #table class="table table-striped">
 
-        <!-- <ng-container cdkColumnDef="__quick_view">
-            <th cdk-header-cell *cdkHeaderCellDef [style.width.px]="'50'">  ...</th>
+        <ng-container cdkColumnDef="id" #sortDirection>
+            <th cdk-header-cell *cdkHeaderCellDef [style.width.px]="'50'"> ID
+                <span >
+                    <i style="text-align: center;" *ngIf="!idSort"
+                        (click)="sortByField('id' , gridSortConfig.Ascending);idSort=gridSortConfig.Ascending;"
+                        class="fa fa-sort"></i>
+                    <i style="text-align: center;" *ngIf="idSort == gridSortConfig.Ascending"
+                        (click)="sortByField('id' , gridSortConfig.Descending); idSort=gridSortConfig.Descending;"
+                        class="fa fa-sort-numeric-asc"></i>
+                    <i style="text-align: center;" *ngIf="idSort == gridSortConfig.Descending"
+                        (click)="sortByField('id' , gridSortConfig.None);idSort=gridSortConfig.None"
+                        class="fa fa-sort-numeric-desc"></i>
+                </span>
+            </th>
+
             <td cdk-cell *cdkCellDef="let row" style="width: 50 px;" (click)="rowClick(row,$event)">
 
-                <i (click)="rowClick(row,$event)" class="far fa-id-card fa fa-file-text">
+                {{row.id}}
+                <!-- <i (click)="rowClick(row,$event)" class="far fa-id-card fa fa-file-text">
                    
-                </i>
+                </i> -->
             </td>
-        </ng-container> -->
+        </ng-container>
         <ng-container>
             <tr cdk-header-row *cdkHeaderRowDef="config.displayColumns; sticky: true">
             </tr>
@@ -27,8 +41,8 @@
 <div class=" row" *ngIf="config.pager">
     <div class="col-md-6 col-lg-7">
         <ngb-pagination class="d-flex justify-content-start" [boundaryLinks]="true" size="sm"
-            (pageChange)="pageChange($event)"  [pageSize]="config.pageSize || 0"
-            [collectionSize]="config.total || 0" [page]="config.page"></ngb-pagination>
+            (pageChange)="pageChange($event)" [pageSize]="config.pageSize || 0" [collectionSize]="config.total || 0"
+            [page]="config.page"></ngb-pagination>
     </div>
     <div class="col-md-3 col-lg-3 text-right ">
         <!-- <ul class="">

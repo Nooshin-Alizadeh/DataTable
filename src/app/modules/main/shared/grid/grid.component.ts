@@ -303,8 +303,19 @@ export class GridComponent implements OnInit, AfterViewInit {
     });
     this.config.dataSource.data.next(this.dataSource);
   }
+   idSort:GridSortConfig | undefined;
+  public get gridSortConfig(): typeof GridSortConfig {
+    return GridSortConfig; 
+  }
+  public sortByField(field:string='', direction: GridSortConfig): void {
 
-  private sort(column: GridColumnConfig, direction: GridSortConfig): void {
+    var columnIndex =this.config.columns.findIndex((dataItem)=>{return dataItem.field==field});
+    this.sort(this.config.columns[columnIndex],direction)
+
+  }
+  public sort(column: GridColumnConfig, direction: GridSortConfig): void {
+  //public sort(field:string='', direction: GridSortConfig=GridSortConfig.Descending): void {
+    
     if (!Array.isArray(this.config.dataSource.data.value)) {
       return;
     }
@@ -318,10 +329,10 @@ export class GridComponent implements OnInit, AfterViewInit {
     } else {
       this.config.dataSource.data.next(this.dataSource.sort((a, b) => this.sortComparer(column.field, direction, a, b)));
     }
-    setTimeout(() => {
-      this.pageChange(this.config.page);
+    // setTimeout(() => {
+    //   this.pageChange(this.config.page);
 
-    }, 200);
+    // }, 200);
 
   }
 
